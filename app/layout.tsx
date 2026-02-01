@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PlanetsProvider } from "@/app/planets-context-provider";
 import { getPlanets } from "@/app/lib/data";
-import { PlanetsProvider } from "./planets-context-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +24,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const planetsPromise = getPlanets()
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PlanetsProvider>{children}</PlanetsProvider>
+        <PlanetsProvider planetsPromiseInit={planetsPromise}>{children}</PlanetsProvider>
       </body>
     </html>
   );

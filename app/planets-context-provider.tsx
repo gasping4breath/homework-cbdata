@@ -11,10 +11,10 @@ export type PlanetsAction =
 const PlanetsContext = createContext<Promise<Planet[]> | null>(null);
 const PlanetsDispatchContext = createContext<Dispatch<PlanetsAction> | null>(null);
 
-export function PlanetsProvider({ children }: { children: React.ReactNode }) {
+export function PlanetsProvider({ planetsPromiseInit, children }: { planetsPromiseInit: Promise<Planet[]>; children: React.ReactNode }) {
   const [planetsPromise, dispatch] = useReducer(
     planetsReducer,
-    getPlanets()
+    planetsPromiseInit
   );
 
   return (
