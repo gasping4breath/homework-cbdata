@@ -1,11 +1,11 @@
 'use client'
-import { use } from 'react'
-import { usePlanetsContextRefresh } from '../planets-context-provider';
+import { refreshPlanets, usePlanetsDispatch } from '@/app/planets-context-provider';
+
  
 export default function RefreshButton() {
-  const refreshPlanets = usePlanetsContextRefresh();
+  const dispatch = usePlanetsDispatch();
  
   return (
-    <button onClick={() => refreshPlanets()}>Refresh Planets</button>
+    <button onClick={() => refreshPlanets(dispatch)}>Refresh Planets</button>
   )
 }
