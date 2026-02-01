@@ -1,4 +1,4 @@
-
+import { z } from 'zod';
 /* 
 name string-- The name of this planet.
 diameter string-- The diameter of this planet in kilometers.
@@ -16,7 +16,7 @@ created string-- the ISO 8601 date format of the time that this resource was cre
 edited string-- the ISO 8601 date format of the time that this resource was edited. 
 */
 
-export type Planet = {
+export type PlanetDao = {
   name: string;
   diameter: string;
   rotation_period: string;
@@ -33,4 +33,21 @@ export type Planet = {
   edited: string;
 };
 
+export const PlanetSchema = z.object({
+  name: z.string(),
+  rotation_period: z.coerce.number().or(z.literal('unknown')),
+  orbital_period: z.coerce.number().or(z.literal('unknown')),
+  diameter: z.coerce.number().or(z.literal('unknown')),
+  climate: z.string(),
+  gravity: z.string(),
+  terrain: z.string(),
+  surface_water: z.coerce.number().or(z.literal('unknown')),
+  population: z.coerce.number().or(z.literal('unknown')),
+  residents: z.array(z.httpUrl()),
+  films: z.array(z.httpUrl()),
+  created: z.iso.datetime(),
+  edited: z.iso.datetime(),
+  url: z.httpUrl(),
+});
 
+export type Planet = z.infer<typeof PlanetSchema>;
