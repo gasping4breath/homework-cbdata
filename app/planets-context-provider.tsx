@@ -14,7 +14,7 @@ const PlanetsDispatchContext = createContext<Dispatch<PlanetsAction> | null>(nul
 export function PlanetsProvider({ children }: { children: React.ReactNode }) {
   const [planetsPromise, dispatch] = useReducer(
     planetsReducer,
-    initialPlanets
+    getPlanets()
   );
 
   return (
@@ -37,7 +37,7 @@ export function usePlanetsContext() {
 
 export function usePlanetsDispatch() {
   const context = useContext(PlanetsDispatchContext);
-  if(!context) {
+  if (!context) {
     throw new Error('Missing PlanetsDispatchContext')
   }
   return context
@@ -58,5 +58,3 @@ function planetsReducer(_: any, action: PlanetsAction) {
 export function refreshPlanets(dispatch: Dispatch<PlanetsAction>) {
   dispatch({ type: PLANETS_REFRESH_ACTION });
 }
-
-const initialPlanets = getPlanets();
