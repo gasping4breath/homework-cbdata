@@ -6,9 +6,10 @@ export default function Page() {
 
   return (
     <div>
-      <RefreshButton />
+      <h1 className="text-2xl font-bold text-center">Planets</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <Planets />
+        <RefreshButton />
       </Suspense>
     </div>
   )
